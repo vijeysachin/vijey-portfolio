@@ -1,0 +1,337 @@
+// Typing Animation
+const typedTextSpan = document.getElementById("typed-text");
+const textArray = ["Vijey Sachin"];
+const typingDelay = 150;
+const erasingDelay = 100;
+const newTextDelay = 2000;
+let textArrayIndex = 0;
+let charIndex = 0;
+
+function type() {
+    if (charIndex < textArray[textArrayIndex].length) {
+        typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
+        charIndex++;
+        setTimeout(type, typingDelay);
+    }
+}
+
+// Start typing when page loads
+document.addEventListener("DOMContentLoaded", function () {
+    setTimeout(type, newTextDelay);
+});
+
+// Particle Canvas Animation
+const canvas = document.getElementById('particleCanvas');
+const ctx = canvas.getContext('2d');
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+class Particle {
+    constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 3 + 1;
+        this.speedX = Math.random() * 3 - 1.5;
+        this.speedY = Math.random() * 3 - 1.5;
+        this.color = `rgba(${Math.random() * 100 + 155}, ${Math.random() * 100 + 155}, 255, ${Math.random() * 0.5 + 0.5})`;
+    }
+
+    update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        if (this.x > canvas.width || this.x < 0) {
+            this.speedX *= -1;
+        }
+        if (this.y > canvas.height || this.y < 0) {
+            this.speedY *= -1;
+        }
+    }
+
+    draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
+// Create particles
+const particlesArray = [];
+const numberOfParticles = 100;
+
+function init() {
+    for (let i = 0; i < numberOfParticles; i++) {
+        particlesArray.push(new Particle());
+    }
+}
+
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (let i = 0; i < particlesArray.length; i++) {
+        particlesArray[i].update();
+        particlesArray[i].draw();
+
+        // Connect particles with lines
+        for (let j = i + 1; j < particlesArray.length; j++) {
+            const dx = particlesArray[i].x - particlesArray[j].x;
+            const dy = particlesArray[i].y - particlesArray[j].y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < 100) {
+                ctx.strokeStyle = `rgba(0, 212, 255, ${1 - distance / 100})`;
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
+                ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
+                ctx.stroke();
+            }
+        }
+    }
+
+    requestAnimationFrame(animate);
+}
+
+init();
+animate();
+
+// Resize canvas on window resize
+window.addEventListener('resize', function () {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+
+// Scroll Animation Observer (AOS-like functionality)
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px'
+};
+
+const observer = new IntersectionObserver(function (entries) {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('aos-animate');
+        }
+    });
+}, observerOptions);
+
+// Observe all elements with data-aos attribute
+document.addEventListener('DOMContentLoaded', function () {
+    const animatedElements = document.querySelectorAll('[data-aos]');
+    animatedElements.forEach(el => observer.observe(el));
+});
+
+// Counter Animation for Statistics
+function animateCounter(element) {
+    const target = parseInt(element.getAttribute('data-count'));
+    const duration = 2000;
+    const increment = target / (duration / 16);
+    let current = 0;
+
+    const updateCounter = () => {
+        current += increment;
+        if (current < target) {
+            element.textContent = Math.floor(current);
+            requestAnimationFrame(updateCounter);
+        } else {
+            element.textContent = target;
+        }
+    };
+
+    updateCounter();
+}
+
+// Trigger counter animation when stats section is visible
+const statsObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const counters = entry.target.querySelectorAll('.stat-number');
+            counters.forEach(counter => {
+                if (counter.textContent === '0') {
+                    animateCounter(counter);
+                }
+            });
+            statsObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.5 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const aboutSection = document.querySelector('.about-section');
+    if (aboutSection) {
+        statsObserver.observe(aboutSection);
+    }
+});
+
+// Smooth scroll for navigation links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
+
+// Parallax effect for about section
+window.addEventListener('scroll', function () {
+    const scrolled = window.pageYOffset;
+    const parallaxBg = document.querySelector('.parallax-bg');
+
+    if (parallaxBg) {
+        parallaxBg.style.transform = `translateY(${scrolled * 0.5}px)`;
+    }
+});
+
+// Add hover effect to skill cards
+document.addEventListener('DOMContentLoaded', function () {
+    const skillCards = document.querySelectorAll('.skill-card');
+
+    skillCards.forEach(card => {
+        card.addEventListener('mouseenter', function () {
+            this.style.transform = 'scale(1.05)';
+        });
+
+        card.addEventListener('mouseleave', function () {
+            this.style.transform = 'scale(1)';
+        });
+    });
+});
+
+// 3D tilt effect for contact cards
+document.addEventListener('DOMContentLoaded', function () {
+    const contactCards = document.querySelectorAll('.contact-card');
+
+    contactCards.forEach(card => {
+        card.addEventListener('mousemove', function (e) {
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            const rotateX = (y - centerY) / 10;
+            const rotateY = (centerX - x) / 10;
+
+            this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-15px)`;
+        });
+
+        card.addEventListener('mouseleave', function () {
+            this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+        });
+    });
+});
+
+// Add fade-in class to elements as they appear
+const fadeInObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+        }
+    });
+}, { threshold: 0.1 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const fadeElements = document.querySelectorAll('.fade-in');
+    fadeElements.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        fadeInObserver.observe(el);
+    });
+});
+
+// Mouse trail effect
+let mouseX = 0;
+let mouseY = 0;
+let trailX = 0;
+let trailY = 0;
+
+document.addEventListener('mousemove', function (e) {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+});
+
+function animateTrail() {
+    trailX += (mouseX - trailX) * 0.1;
+    trailY += (mouseY - trailY) * 0.1;
+
+    // Create trail particle
+    if (Math.random() > 0.9) {
+        createTrailParticle(trailX, trailY);
+    }
+
+    requestAnimationFrame(animateTrail);
+}
+
+function createTrailParticle(x, y) {
+    const particle = document.createElement('div');
+    particle.style.position = 'fixed';
+    particle.style.left = x + 'px';
+    particle.style.top = y + 'px';
+    particle.style.width = '5px';
+    particle.style.height = '5px';
+    particle.style.borderRadius = '50%';
+    particle.style.background = 'rgba(0, 212, 255, 0.5)';
+    particle.style.pointerEvents = 'none';
+    particle.style.zIndex = '9999';
+    particle.style.transition = 'all 1s ease-out';
+
+    document.body.appendChild(particle);
+
+    setTimeout(() => {
+        particle.style.opacity = '0';
+        particle.style.transform = 'scale(0)';
+    }, 10);
+
+    setTimeout(() => {
+        document.body.removeChild(particle);
+    }, 1000);
+}
+
+animateTrail();
+
+// Loading animation
+window.addEventListener('load', function () {
+    document.body.classList.add('loaded');
+});
+
+// Add ripple effect to buttons
+document.addEventListener('DOMContentLoaded', function () {
+    const buttons = document.querySelectorAll('.btn');
+
+    buttons.forEach(button => {
+        button.addEventListener('click', function (e) {
+            const ripple = document.createElement('span');
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            ripple.classList.add('ripple');
+
+            this.appendChild(ripple);
+
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        });
+    });
+});
+
+// Console Easter Egg
+console.log('%c👋 Hello Developer!', 'font-size: 20px; font-weight: bold; color: #00d4ff;');
+console.log('%cThis portfolio was crafted with ❤️ using ASP.NET MVC', 'font-size: 14px; color: #7b2cbf;');
+console.log('%cLooking for a talented .NET developer? Let\'s talk!', 'font-size: 12px; color: #ff006e;');
+console.log('%c📧 vijeysachin1605@gmail.com', 'font-size: 12px; color: #00d4ff;');
