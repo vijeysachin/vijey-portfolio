@@ -369,16 +369,20 @@ function resolveBug() {
     const codeArea = document.getElementById("buggy-code");
     const status = document.getElementById("fix-status");
 
-    // Simulate resolving the bug mentioned in your resume 
-    codeArea.innerHTML = `// FIX APPLIED [cite: 12]
+    // Applying the fix mentioned in your professional experience [cite: 8, 9]
+    codeArea.innerHTML = `-- FIX APPLIED [cite: 12]
 SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
 SELECT ProductID, Qty 
 FROM Inventory WITH (NOLOCK)
-WHERE StoreID = @ID;`;
+WHERE StoreID = @@ID;`;
 
-    codeArea.style.color = "#27c93f";
-    status.innerHTML = "✅ Production Fixed! System Stable. [cite: 9]";
-    status.className = "success";
+    codeArea.style.color = "#b5cea8"; // SQL Comment green
+    status.innerHTML = "Query executed successfully. (1 row affected)";
+
+    // Add a "Success" toast for additional feedback
+    if (typeof showToast === "function") {
+        showToast("Database Integrity Restored.");
+    }
 }
 
 
