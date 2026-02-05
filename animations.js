@@ -1,9 +1,9 @@
 // Typing Animation
 const typedTextSpan = document.getElementById("typed-text");
-const textArray = ["Vijey Sachin"];
-const typingDelay = 150;
-const erasingDelay = 100;
-const newTextDelay = 2000;
+const textArray = ["Vijey sachin A"];
+const typingDelay = 100;
+const erasingDelay = 90;
+const newTextDelay = 500;
 let textArrayIndex = 0;
 let charIndex = 0;
 
