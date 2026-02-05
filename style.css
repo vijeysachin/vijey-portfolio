@@ -87,6 +87,7 @@ html {
     width: 100%;
     height: 100%;
     z-index: 2;
+    pointer-events: none; /* ⭐ THIS LINE FIXES CLICK ISSUE */
 }
 
 .hero-content {
@@ -469,25 +470,6 @@ html {
     color: var(--primary-color);
 }
 
-.about-points {
-    list-style: none;
-    padding-left: 0;
-}
-
-.about-points li {
-    margin-bottom: 15px;
-    padding-left: 30px;
-    position: relative;
-}
-
-.about-points li::before {
-    content: "▹";
-    position: absolute;
-    left: 0;
-    color: var(--primary-color);
-    font-size: 1.5rem;
-}
-
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -688,6 +670,11 @@ html {
         box-shadow: 0 10px 20px rgba(0, 212, 255, 0.3);
     }
 
+footer.footer {
+    position: relative;
+    z-index: 50;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .typing-text {
@@ -816,6 +803,8 @@ html {
         transform: perspective(2500px) rotateY(0);
     }
 
+
+
 .cbazaar-link a {
     color: #ff6fa5;
     text-decoration: none;
@@ -834,16 +823,14 @@ html {
     width: auto;
 }
 
-footer.footer {
-    position: relative;
-    z-index: 50;
-}
 
 body::after {
     content: "";
     display: block;
     height: 0;
 }
+
+
 
 
 
