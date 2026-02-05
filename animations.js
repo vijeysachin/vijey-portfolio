@@ -364,8 +364,26 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+// Function for the Interactive Debugger
+function resolveBug() {
+    const codeArea = document.getElementById("buggy-code");
+    const status = document.getElementById("fix-status");
+
+    // Simulate resolving the bug mentioned in your resume 
+    codeArea.innerHTML = `// FIX APPLIED [cite: 12]
+SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+SELECT ProductID, Qty 
+FROM Inventory WITH (NOLOCK)
+WHERE StoreID = @ID;`;
+
+    codeArea.style.color = "#27c93f";
+    status.innerHTML = "✅ Production Fixed! System Stable. [cite: 9]";
+    status.className = "success";
+}
+
+
 // Console Easter Egg
 console.log('%c👋 Hello Developer!', 'font-size: 20px; font-weight: bold; color: #00d4ff;');
-console.log('%cThis portfolio was crafted with ❤️ using ASP.NET MVC', 'font-size: 14px; color: #7b2cbf;');
+console.log('%cThis portfolio was crafted with ❤️ using ASP.NET', 'font-size: 14px; color: #7b2cbf;');
 console.log('%cLooking for a talented .NET developer? Let\'s talk!', 'font-size: 12px; color: #ff006e;');
 console.log('%c📧 vijeysachin1605@gmail.com', 'font-size: 12px; color: #00d4ff;');
