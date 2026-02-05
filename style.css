@@ -833,3 +833,15 @@ html {
     height: 22px;
     width: auto;
 }
+
+footer.footer {
+    position: relative;
+    z-index: 50;
+}
+
+body::after {
+    content: "";
+    display: block;
+    height: 0;
+}
+
