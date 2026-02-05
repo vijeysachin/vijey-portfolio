@@ -133,6 +133,22 @@
     <section class="about-section" id="about">
         <div class="parallax-bg"></div>
         <div class="container">
+
+       <div class="terminal-window" data-aos="zoom-in">
+          <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+              <p>sachin_stats.exe</p>
+          </div>
+          <div class="terminal-body">
+              <p>> <span class="t-label">Degree:</span> B.E. Electronics & Telecomm [cite: 16]</p>
+              <p>> <span class="t-label">CGPA:</span> 7.84 [cite: 18]</p>
+              <p>> <span class="t-label">Current:</span> .NET Developer at Cbazaar [cite: 6]</p>
+              <p>> <span class="t-label">Status:</span> Open for Innovation</p>
+          </div>
+      </div>
+            
             <div class="about-content" data-aos="fade-right">
                 <h2 class="section-title">About Me</h2>
                 <div class="about-text">
@@ -185,6 +201,28 @@
         </div>
     </section>
 
+
+        <!-- Production Debugger -->
+    <section class="debug-section" id="debugger">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Production Debugger</h2>
+            <div class="debug-container" data-aos="zoom-in">
+                <div class="code-header">Critical Bug Detected: Inventory Mismatch </div>
+                <div class="code-editor">
+                    <pre id="buggy-code">
+// SQL Error in Stored Procedure [cite: 8]
+SELECT ProductID, Qty 
+FROM Inventory 
+WHERE StoreID = @@ID
+-- Missing: Transaction Isolation Level
+                </pre>
+                </div>
+                <button class="btn btn-primary" onclick="resolveBug()">Apply Fast Fix [cite: 9]</button>
+                <p id="fix-status" style="margin-top: 15px; font-weight: bold;"></p>
+            </div>
+        </div>
+    </section>
+    
     <!-- Interactive Timeline Section -->
     <section class="timeline-section" id="experience">
         <div class="container">
@@ -249,7 +287,10 @@
             </div>
         </div>
     </footer>
-
+    <a href="https://wa.me/9003329188" class="floating-contact" target="_blank">
+        <div class="pulse"></div>
+        <span>Hire Me</span>
+    </a>
     <script src="animations.js"></script>
 </body>
 </html>
