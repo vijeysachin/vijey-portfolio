@@ -144,26 +144,60 @@ function animateCounter(element) {
 }
 
 // Trigger counter animation when stats section is visible
-const statsObserver = new IntersectionObserver(function (entries) {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const counters = entry.target.querySelectorAll('.stat-number');
-            counters.forEach(counter => {
-                if (counter.textContent === '0') {
-                    animateCounter(counter);
-                }
-            });
-            statsObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.5 });
+//const statsObserver = new IntersectionObserver(function (entries) {
+//    entries.forEach(entry => {
+//        if (entry.isIntersecting) {
+//            const counters = entry.target.querySelectorAll('.stat-number');
+//            counters.forEach(counter => {
+//                if (counter.textContent === '0') {
+//                    animateCounter(counter);
+//                }
+//            });
+//            statsObserver.unobserve(entry.target);
+//        }
+//    });
+//}, { threshold: 0.5 });
 
-document.addEventListener('DOMContentLoaded', function () {
-    const aboutSection = document.querySelector('.about-section');
-    if (aboutSection) {
-        statsObserver.observe(aboutSection);
+//document.addEventListener('DOMContentLoaded', function () {
+//    const aboutSection = document.querySelector('.about-section');
+//    if (aboutSection) {
+//        statsObserver.observe(aboutSection);
+//    }
+//});
+
+
+// Counter Animation for Statistics (Mobile + Desktop safe)
+const statsObserver = new IntersectionObserver(
+    (entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const counters = entry.target.querySelectorAll('.stat-number');
+
+                counters.forEach(counter => {
+                    if (!counter.classList.contains('counted')) {
+                        counter.classList.add('counted');
+                        animateCounter(counter);
+                    }
+                });
+
+                observer.unobserve(entry.target);
+            }
+        });
+    },
+    {
+        threshold: 0.2, 
+        rootMargin: "0px 0px -50px 0px"
+    }
+);
+
+document.addEventListener("DOMContentLoaded", () => {
+    const statsGrid = document.querySelector(".stats-grid");
+    if (statsGrid) {
+        statsObserver.observe(statsGrid);
     }
 });
+
+
 
 // Smooth scroll for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
