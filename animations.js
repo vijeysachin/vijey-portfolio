@@ -282,7 +282,7 @@ function createTrailParticle(x, y) {
     particle.style.borderRadius = '50%';
     particle.style.background = 'rgba(0, 212, 255, 0.5)';
     particle.style.pointerEvents = 'none';
-    particle.style.zIndex = '9999';
+    particle.style.zIndex = '1';
     particle.style.transition = 'all 1s ease-out';
 
     document.body.appendChild(particle);
