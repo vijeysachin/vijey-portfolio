@@ -1,6 +1,6 @@
 // Typing Animation
 const typedTextSpan = document.getElementById("typed-text");
-const textArray = ["Vijey sachin A"];
+const textArray = ["Vijey Sachin A"];
 const typingDelay = 100;
 const erasingDelay = 90;
 const newTextDelay = 500;
@@ -143,29 +143,6 @@ function animateCounter(element) {
     updateCounter();
 }
 
-// Trigger counter animation when stats section is visible
-//const statsObserver = new IntersectionObserver(function (entries) {
-//    entries.forEach(entry => {
-//        if (entry.isIntersecting) {
-//            const counters = entry.target.querySelectorAll('.stat-number');
-//            counters.forEach(counter => {
-//                if (counter.textContent === '0') {
-//                    animateCounter(counter);
-//                }
-//            });
-//            statsObserver.unobserve(entry.target);
-//        }
-//    });
-//}, { threshold: 0.5 });
-
-//document.addEventListener('DOMContentLoaded', function () {
-//    const aboutSection = document.querySelector('.about-section');
-//    if (aboutSection) {
-//        statsObserver.observe(aboutSection);
-//    }
-//});
-
-
 // Counter Animation for Statistics (Mobile + Desktop safe)
 const statsObserver = new IntersectionObserver(
     (entries, observer) => {
@@ -185,7 +162,7 @@ const statsObserver = new IntersectionObserver(
         });
     },
     {
-        threshold: 0.2, 
+        threshold: 0.2,
         rootMargin: "0px 0px -50px 0px"
     }
 );
@@ -384,7 +361,6 @@ WHERE StoreID = @@ID;`;
         showToast("Database Integrity Restored.");
     }
 }
-
 
 // Console Easter Egg
 console.log('%c👋 Hello Developer!', 'font-size: 20px; font-weight: bold; color: #00d4ff;');
