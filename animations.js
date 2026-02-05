@@ -351,7 +351,7 @@ function resolveBug() {
 SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
 SELECT ProductID, Qty 
 FROM Inventory WITH (NOLOCK)
-WHERE StoreID = @@ID;`;
+WHERE StoreID = @ID;`;
 
     codeArea.style.color = "#b5cea8"; // SQL Comment green
     status.innerHTML = "Query executed successfully. (1 row affected)";
