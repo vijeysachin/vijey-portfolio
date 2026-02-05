@@ -202,26 +202,46 @@
     </section>
 
 
-        <!-- Production Debugger -->
+
+    <!-- Production Debugger -->
     <section class="debug-section" id="debugger">
         <div class="container">
             <h2 class="section-title" data-aos="fade-up">Production Debugger</h2>
-            <div class="debug-container" data-aos="zoom-in">
                 <div class="code-header">Critical Bug Detected: Inventory Mismatch </div>
-                <div class="code-editor">
-                    <pre id="buggy-code">
-// SQL Error in Stored Procedure [cite: 8]
+                <div class="ssms-window" data-aos="zoom-in">
+                    <div class="ssms-tabs">
+                        <div class="ssms-tab active">
+                            <span class="sql-icon">📄</span> SQLQuery1.sql - (Cbazaar_DB)*
+                        </div>
+                    </div>
+
+                    <div class="ssms-toolbar">
+                        <button class="ssms-btn-fix" onclick="resolveBug()">▶ Execute</button>
+                        <span class="ssms-separator">|</span>
+                        <span class="ssms-db-select">Master</span>
+                    </div>
+
+                    <div class="code-editor ssms-editor">
+                        <div class="line-numbers">
+                            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
+                        </div>
+                        <pre id="buggy-code">
+-- [CRITICAL] Inventory Mismatch Found [cite: 8]
 SELECT ProductID, Qty 
 FROM Inventory 
 WHERE StoreID = @@ID
 -- Missing: Transaction Isolation Level
                 </pre>
+                    </div>
+
+                    <div class="ssms-status-bar">
+                        <span id="fix-status">Ready</span>
+                        <span class="ssms-right">Ln 4, Col 21 | Ch 21 | UTF-8</span>
+                    </div>
                 </div>
-                <button class="btn btn-primary" onclick="resolveBug()">Apply Fast Fix [cite: 9]</button>
-                <p id="fix-status" style="margin-top: 15px; font-weight: bold;"></p>
             </div>
-        </div>
-    </section>
+</section>
+
     
     <!-- Interactive Timeline Section -->
     <section class="timeline-section" id="experience">
