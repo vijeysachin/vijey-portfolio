@@ -351,7 +351,7 @@ function resolveBug() {
 SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
 SELECT ProductID, Qty 
 FROM Inventory WITH (NOLOCK)
-WHERE StoreID = @ID;`;
+WHERE StoreID = @@ID;`;
 
     codeArea.style.color = "#b5cea8"; // SQL Comment green
     status.innerHTML = "Query executed successfully. (1 row affected)";
@@ -360,6 +360,122 @@ WHERE StoreID = @ID;`;
     if (typeof showToast === "function") {
         showToast("Database Integrity Restored.");
     }
+}
+
+/*-----------------------------------------------------------------*/
+
+const logContainer = document.getElementById('live-logs');
+const messages = [
+    "Cache hit for product_data",
+    "SQL Query optimized (0.02ms)",
+    "Memory usage stable at 124MB",
+    "API Request: GET /api/v1/inventory",
+    "Security handshake successful",
+    "Optimizing INP performance..."
+];
+
+setInterval(() => {
+    const time = new Date().toLocaleTimeString();
+    const msg = messages[Math.floor(Math.random() * messages.length)];
+    const entry = document.createElement('div');
+    entry.className = 'log-entry';
+    entry.innerHTML = `<span class="time">${time}</span> <span class="status">[OK]</span> ${msg}`;
+    logContainer.prepend(entry);
+    if (logContainer.childNodes.length > 5) logContainer.lastChild.remove();
+}, 3000);
+
+
+
+function filterTech(category) {
+    const cards = document.querySelectorAll('.skill-card');
+    cards.forEach(card => {
+        const icon = card.querySelector('.icon').innerText;
+
+        // "🤖" (AI) and "🚀" (Full Stack) are universal - ALWAYS SHOW
+        if (icon === "🤖" || icon === "🚀") {
+            card.style.display = 'block';
+            return;
+        }
+
+        const isBackend = ["🎯", "⚡", "🔌", "💾"].includes(icon);
+        const isFrontend = ["🛒", "🎬"].includes(icon);
+
+        if (category === 'backend') {
+            card.style.display = isBackend ? 'block' : 'none';
+        } else if (category === 'frontend') {
+            card.style.display = isFrontend ? 'block' : 'none';
+        }
+    });
+}
+
+// Add this to your existing mouse trail logic
+document.addEventListener('mousemove', (e) => {
+    const cards = document.querySelectorAll('.skill-card, .terminal-window');
+    cards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        const cardCenterX = rect.left + rect.width / 2;
+        const cardCenterY = rect.top + rect.height / 2;
+
+        const deltaX = e.clientX - cardCenterX;
+        const deltaY = e.clientY - cardCenterY;
+        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+        if (distance < 300) {
+            const angle = Math.atan2(deltaY, deltaX);
+            const force = (300 - distance) / 20;
+            card.style.transform = `translate3d(${Math.cos(angle) * force}px, ${Math.sin(angle) * force}px, 0)`;
+        } else {
+            card.style.transform = `translate3d(0, 0, 0)`;
+        }
+    });
+});
+
+
+function triggerFlowDemo(event) {
+    event.stopPropagation();
+    const toast = document.getElementById("stackToast");
+    const steps = ["step-ui", "step-dotnet", "step-sql", "step-final"];
+    const btn = event.target;
+    const statusBar = document.getElementById("fix-status");
+
+    // UI Code Logs to show in your Debugger
+    const technicalLogs = [
+        ">> $.ajax({ type: 'POST', url: '/UpdateInventory' });",
+        ">> Executing: public IHttpActionResult SaveData(Model m)",
+        ">> SQL: UPDATE Inventory SET Stock = @qty WHERE ID = @id",
+        ">> HTTP 200: Response.Json({ success: true });"
+    ];
+
+    // Reset and Show
+    btn.disabled = true;
+    steps.forEach(id => document.getElementById(id).classList.remove('done'));
+    toast.classList.add("active");
+
+    let i = 0;
+    const interval = setInterval(() => {
+        if (i < steps.length) {
+            document.getElementById(steps[i]).classList.add('done');
+
+            // This links it to your SSMS / Debugger window at the bottom!
+            if (statusBar) {
+                statusBar.innerText = technicalLogs[i];
+                statusBar.style.background = "#28a745"; // Success Green
+            }
+
+            i++;
+        } else {
+            clearInterval(interval);
+
+            setTimeout(() => {
+                toast.classList.remove("active");
+                btn.disabled = false;
+                if (statusBar) {
+                    statusBar.innerText = "Full Stack Lifecycle Verified.";
+                    statusBar.style.background = "#007acc"; // Back to Blue
+                }
+            }, 3500);
+        }
+    }, 1200); // Slightly slower for readability
 }
 
 // Console Easter Egg
