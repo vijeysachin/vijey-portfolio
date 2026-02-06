@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,7 +42,40 @@
         <div class="container">
             <h2 class="section-title" data-aos="fade-up">Technical Expertise</h2>
 
+
+            <div class="tech-toggle-container" style="text-align:center; margin-bottom: 40px;">
+                <button class="btn btn-secondary active" onclick="filterTech('backend')">Backend (.NET)</button>
+                <button class="btn btn-secondary" onclick="filterTech('frontend')">Frontend/Tools</button>
+            </div>
+
+
             <div class="skills-grid">
+
+
+
+                <div class="skill-card full-stack-card" data-aos="flip-left" data-aos-delay="50">
+                    <div class="card-inner">
+                        <div class="card-front full-stack-front">
+                            <div class="icon">🚀</div>
+                            <h3>Full-Stack Flow</h3>
+                            <div class="flow-indicator">
+                                <span class="flow-step">UI</span> →
+                                <span class="flow-step">.NET</span> →
+                                <span class="flow-step">SQL</span>
+                            </div>
+                        </div>
+                        <div class="card-back full-stack-back">
+                            <p><strong>End-to-End Ownership:</strong></p>
+                            <ul class="mini-list">
+                                <li>JS/jQuery for UI Logic</li>
+                                <li>C# Controllers & Web API</li>
+                                <li>SQL CRUD Operations</li>
+                            </ul>
+                            <button class="btn-mini" onclick="triggerFlowDemo(event)">Run Lifecycle</button>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="skill-card" data-aos="flip-left" data-aos-delay="100">
                     <div class="card-inner">
                         <div class="card-front">
@@ -88,6 +120,20 @@
                         </div>
                         <div class="card-back">
                             <p>Database design, stored procedures, query optimization, and data management</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="skill-card" data-aos="flip-left" data-aos-delay="450">
+                    <div class="card-inner">
+                        <div class="card-front ai-expert-front">
+                            <div class="icon">🤖</div>
+                            <h3>Advanced Prompting</h3>
+                            <div class="ai-capability">Logic • Design • Automation</div>
+                        </div>
+                        <div class="card-back ai-expert-back">
+                            <p><strong>Precision AI Orchestration:</strong> Skillful in engineering high-context prompts to extract clear, accurate, and optimized outputs. I bridge technical logic and creative vision by effectively guiding AI to generate high-quality code, database solutions, and visual assets.</p>
                         </div>
                     </div>
                 </div>
@@ -143,6 +189,11 @@
                     <span class="dot green"></span>
                     <p>sachin_stats.exe</p>
                 </div>
+
+                <div class="health-dashboard" id="live-logs">
+                    <div class="log-entry"><span class="time">10:00:01</span> <span class="status">[SYS]</span> System initialized...</div>
+                </div>
+
                 <div class="terminal-body">
                     <p>> <span class="t-label">Degree:</span> B.E. Electronics & Telecomm [cite: 16]</p>
                     <p>> <span class="t-label">CGPA:</span> 7.84 [cite: 18]</p>
@@ -210,40 +261,40 @@
     <section class="debug-section" id="debugger">
         <div class="container">
             <h2 class="section-title" data-aos="fade-up">Production Debugger</h2>
-                <div class="code-header">Critical Bug Detected: Inventory Mismatch </div>
-                <div class="ssms-window" data-aos="zoom-in">
-                    <div class="ssms-tabs">
-                        <div class="ssms-tab active">
-                            <span class="sql-icon">📄</span> SQLQuery1.sql - (Vijey_DB)*
-                        </div>
+            <div class="code-header">Critical Bug Detected: Inventory Mismatch </div>
+            <div class="ssms-window" data-aos="zoom-in">
+                <div class="ssms-tabs">
+                    <div class="ssms-tab active">
+                        <span class="sql-icon">📄</span> SQLQuery1.sql - (Cbazaar_DB)*
                     </div>
+                </div>
 
-                    <div class="ssms-toolbar">
-                        <button class="ssms-btn-fix" onclick="resolveBug()">▶ Execute</button>
-                        <span class="ssms-separator">|</span>
-                        <span class="ssms-db-select">Master</span>
+                <div class="ssms-toolbar">
+                    <button class="ssms-btn-fix" onclick="resolveBug()">▶ Execute</button>
+                    <span class="ssms-separator">|</span>
+                    <span class="ssms-db-select">Master</span>
+                </div>
+
+                <div class="code-editor ssms-editor">
+                    <div class="line-numbers">
+                        <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
                     </div>
-
-                    <div class="code-editor ssms-editor">
-                        <div class="line-numbers">
-                            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
-                        </div>
-                        <pre id="buggy-code">
+                    <pre id="buggy-code">
 -- [CRITICAL] Inventory Mismatch Found [cite: 8]
 SELECT ProductID, Qty 
 FROM Inventory 
 WHERE StoreID = @@ID
 -- Missing: Transaction Isolation Level
                 </pre>
-                    </div>
+                </div>
 
-                    <div class="ssms-status-bar">
-                        <span id="fix-status">Ready</span>
-                        <span class="ssms-right">Ln 4, Col 21 | Ch 21 | UTF-8</span>
-                    </div>
+                <div class="ssms-status-bar">
+                    <span id="fix-status">Ready</span>
+                    <span class="ssms-right">Ln 4, Col 21 | Ch 21 | UTF-8</span>
                 </div>
             </div>
-</section>
+        </div>
+    </section>
 
 
     <!-- Interactive Timeline Section -->
@@ -322,6 +373,53 @@ WHERE StoreID = @@ID
         <div class="pulse"></div>
         <span>Hire Me</span>
     </a>
+
+    <div id="stackToast" class="stack-toast">
+        <div class="toast-header">
+            <div class="pulse-container">
+                <div class="pulse-ring"></div>
+                <div class="pulse-dot"></div>
+            </div>
+            <h4>.NET Full Stack Pipeline</h4>
+        </div>
+
+        <div class="stack-progress-item" id="step-ui">
+            <span class="step-icon">💻</span>
+            <div class="step-details">
+                <p class="step-title">Frontend Interaction</p>
+                <small>jQuery / AJAX Request Sent</small>
+            </div>
+            <i class="check-mark"></i>
+        </div>
+
+        <div class="stack-progress-item" id="step-dotnet">
+            <span class="step-icon">🚀</span>
+            <div class="step-details">
+                <p class="step-title">.NET Server Logic</p>
+                <small>C# Business Layer Processing</small>
+            </div>
+            <i class="check-mark"></i>
+        </div>
+
+        <div class="stack-progress-item" id="step-sql">
+            <span class="step-icon">📦</span>
+            <div class="step-details">
+                <p class="step-title">Data Persistence</p>
+                <small>MS SQL Server CRUD Operation</small>
+            </div>
+            <i class="check-mark"></i>
+        </div>
+
+        <div class="stack-progress-item" id="step-final">
+            <span class="step-icon">✅</span>
+            <div class="step-details">
+                <p class="step-title">Response Handled</p>
+                <small>UI Updated Successfully</small>
+            </div>
+            <i class="check-mark"></i>
+        </div>
+    </div>
+
 
     <script src="animations.js"></script>
 </body>
